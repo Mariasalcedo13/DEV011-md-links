@@ -5,7 +5,6 @@ const mdLinks = (path, validate ) => {
     return new Promise((resolve, reject) => {
         // Verificar si la ruta es absoluta y convertirla
         const pathAbsoluto = functions.isPathAbsolute(path) ? path : functions.pathAbsolute(path);
-        console.log(pathAbsoluto);
         // Verificar si la ruta existe
         if (functions.existePath(pathAbsoluto)) {
             // Cuando la ruta existe

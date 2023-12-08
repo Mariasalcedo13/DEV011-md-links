@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { readFile } = require("fs/promises");
 const path = require("path");
-//const { isErrored } = require('stream');
+const { isErrored } = require('stream');
 const axios = require('axios');
 
 //const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -31,14 +31,12 @@ module.exports = {
   
   isPathAbsolute(filePath) {
     // vverificar si es adsoluta 
-   
     return path.isAbsolute(filePath);
   },
 
   pathAbsolute(filePath) {
     // coventir path adsolute
-    const pathAbsolute =  path.resolve(filePath);
-    return pathAbsolute
+    return path.resolve(filePath);
   },
 
   existePath(filePath) {
@@ -112,7 +110,7 @@ module.exports = {
       })
   },
 
-/*
+
   stats(links){
     const uniqueLinks = links.filter((link, index) => links.indexOf(link) === index);
   
@@ -120,7 +118,7 @@ module.exports = {
       Total: links.length,
       Unique: uniqueLinks.length,
     };
-  }*/
+  }
 
 };
 
