@@ -1,12 +1,41 @@
 {
-  "name": "md-links",
+  "name": "md-links-maria",
   "version": "0.1.0",
+  "main": "index.js",
   "engines": {
     "node": ">=16.x"
+  },
+  "scripts": {
+    "test": "jest --watch --verbose --detectOpenHandles --coverage"
   },
   "bootcamp": {
     "createdAt": "2023-09-22T12:23:39.903Z",
     "version": "7.1.0",
     "commit": "d257c41694344460623eb1f1bb2a690bdfe33f83"
-  }
+  },
+  "devDependencies": {
+    "jest": "^29.7.0 "
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "node-fetch": "^3.3.2"
+  },
+  "description": "Realiza un análisis de archivos en formato Markdown para evaluar el estado de los enlaces contenidos en ellos, proporcionando informes detallados y estadísticas pertinentes, extrae link y analiza enlaces rotos",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mariasalcedo13/DEV011-md-links.git"
+  },
+  "author": "Maria Salcedo",
+  "license": "ISC",
+  "bin": {
+    "mdLinks": "cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/Mariasalcedo13/DEV011-md-links/issues"
+  },
+  "homepage": "https://github.com/Mariasalcedo13/DEV011-md-links#readme"
 }
