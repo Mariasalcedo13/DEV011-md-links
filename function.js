@@ -13,17 +13,18 @@ const axios = require('axios');
 function validarLink(link) {
   return axios.get(link)
   .then(response => {
-   // console.log('Código de estado HTTP:', response.status);
    
-    return response.status; // o response.text() si esperas una respuesta en formato de texto
+   
+    return response.status; 
   })
   .catch(error => {
-    //console.error('Error en la solicitud:');
+    
     return 'error'
   });}
 
-
-  //calculo total de los links 
+  // console.log('Código de estado HTTP:', response.status);
+//console.error('Error en la solicitud:');
+  // o response.text() si esperas una respuesta en formato de texto
 
 
 
@@ -110,13 +111,29 @@ module.exports = {
       })
   },
 
-
+//calculo total de los links 
   stats(links){
     const uniqueLinks = links.filter((link, index) => links.indexOf(link) === index);
   
     return {
       Total: links.length,
       Unique: uniqueLinks.length,
+    };
+  },
+
+
+  
+  
+  
+  validar(processLinks) {
+    const activeLinks = processLinks.filter((link) => link.ok === "ok");
+    const brokenLinks = processLinks.filter((link) => link.ok === "fail");
+  
+    return {
+        Total: processLinks.length,
+        Active: activeLinks.length,
+        Broken: brokenLinks.length,
+        Unique: [...new Set(processLinks.map((link) => link.href))].length,
     };
   }
 

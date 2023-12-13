@@ -1,27 +1,42 @@
 
 const functions = require('./function.js');
 
-const mdLinks = (path, validate ) => {
+const mdLinks = (path, validate ,stats) => {
     return new Promise((resolve, reject) => {
         // Verificar si la ruta es absoluta y convertirla
         const pathAbsoluto = functions.isPathAbsolute(path) ? path : functions.pathAbsolute(path);
         // Verificar si la ruta existe
-        if (functions.existePath(pathAbsoluto)) {
-            // Cuando la ruta existe
-            functions.leerArchivo(pathAbsoluto)
-                .then(content => {
-                    return functions.extraerLinks(content);
-                })
-                .then (links => {
-                    console.log(validate, 'AAAAAA');
-                    return functions.processLinks(links, pathAbsoluto, validate)
-                })
-                .then (resp => {
-                    resolve(resp)
-                })
-                .catch(error => {
-                    reject(`Error reading the file: ${error.message}`);
-                });
+    if (functions.existePath(pathAbsoluto)) {
+        // Cuando la ruta existe
+        functions.leerArchivo(pathAbsoluto)
+        .then(content => functions.extraerLinks(content))
+        .then(links => functions.processLinks(links, pathAbsoluto, validate))
+        .then(processedLinks => {
+          
+          if (validate && stats) {
+            // Si validate es verdadero, resolver con los resultados de la validación
+            const combineResult = functions.validar(processedLinks);
+            resolve({links:combineResult});
+            
+
+          }
+          //cunado esta en stast y validate
+           else if (validate){
+            const validationResults = functions.validar(processedLinks);
+            
+      resolve({ links: processedLinks});
+            
+
+          }
+          else {
+            // Si validate es falso, resolver con los resultados de stats
+            const statistics = functions.stats(processedLinks);
+            resolve({ links:  statistics });
+          }
+        })
+        .catch(error => {
+          reject(`Error processing links: ${error.message}`);
+        });
         } else {
             // Si no existe la ruta, se rechaza la promesa
             reject("La ruta no existe");
@@ -40,7 +55,9 @@ const mdLinks = (path, validate ) => {
 
 module.exports = { mdLinks };
 
-
+// .then (resp => {
+//     resolve(resp)
+// })
 // const functions = require('./function.js');
 
 // const mdLinks = (path, validate ) => {
